@@ -1,6 +1,6 @@
 module main
 
-import gg
+import gg 
 import moduloam
 
 const win_w = 1000
