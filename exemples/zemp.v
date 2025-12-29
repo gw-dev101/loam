@@ -2,6 +2,7 @@ module main
 
 import gg 
 import moduloam
+import gg_frontend
 
 const win_w = 1000
 const win_h = 700
@@ -34,7 +35,7 @@ fn frame(mut app App) {
     app.build_ui()
 
     cmds := app.ctx.end_layout()
-    draw(mut app.gg, cmds)
+    gg_frontend.draw(mut app.gg, cmds)
 
     app.gg.end()
 }
@@ -177,24 +178,4 @@ fn pad(v f32) moduloam.Padding {
 
 fn rgb(r int, g int, b int) moduloam.Color {
     return moduloam.Color{ r: u8(r), g: u8(g), b: u8(b), a: 255 }
-}
-
-fn draw(mut g gg.Context, cmds []moduloam.RenderCommand) {
-    for cmd in cmds {
-        if cmd.command_type == .rectangle {
-            g.draw_rect_filled(
-                cmd.bounds.x,
-                cmd.bounds.y,
-                cmd.bounds.width,
-                cmd.bounds.height,
-                gg.rgb(cmd.color.r, cmd.color.g, cmd.color.b)
-            )
-        }
-        else if cmd.command_type == .text {
-            //euh
-        }
-        else if cmd.command_type == .image {
-            //TODO
-        }
-    }
 }
