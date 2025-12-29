@@ -5,20 +5,22 @@ import moduloam {RenderCommand}
 
 pub fn draw(mut gg_ctx gg.Context, cmds []RenderCommand) {
     for cmd in cmds {
-        if cmd.command_type == .rectangle {
-            gg_ctx.draw_rect_filled(
-                cmd.bounds.x,
-                cmd.bounds.y,
-                cmd.bounds.width,
-                cmd.bounds.height,
-                gg.rgb(cmd.color.r, cmd.color.g, cmd.color.b)
-            )
-        }
-        else if cmd.command_type == .text {
+        match cmd.command_type {
+	        .rectangle {
+	            gg_ctx.draw_rect_filled(
+	                cmd.bounds.x,
+	                cmd.bounds.y,
+	                cmd.bounds.width,
+	                cmd.bounds.height,
+	                gg.rgb(cmd.color.r, cmd.color.g, cmd.color.b)
+	            )
+	        }.text {
             //euh
         }
-        else if cmd.command_type == .image {
+        .image {
             //TODO
+        }
+        
         }
     }
 }
