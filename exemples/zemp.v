@@ -179,13 +179,22 @@ fn rgb(r int, g int, b int) moduloam.Color {
     return moduloam.Color{ r: u8(r), g: u8(g), b: u8(b), a: 255 }
 }
 
-
-            g.draw_text(
-                int(cmd.bounds.x),
-                int(cmd.bounds.y),
-                cmd.text,
-                gg.TextCfg{
-                    color: gg.rgb(cmd.color.r, cmd.color.g, cmd.color.b)
-                    size: 16
-                }
+fn draw(mut g gg.Context, cmds []moduloam.RenderCommand) {
+    for cmd in cmds {
+        if cmd.command_type == .rectangle {
+            g.draw_rect_filled(
+                cmd.bounds.x,
+                cmd.bounds.y,
+                cmd.bounds.width,
+                cmd.bounds.height,
+                gg.rgb(cmd.color.r, cmd.color.g, cmd.color.b)
             )
+        }
+        else if cmd.command_type == .text {
+            //euh
+        }
+        else if cmd.command_type == .image {
+            //TODO
+        }
+    }
+}
