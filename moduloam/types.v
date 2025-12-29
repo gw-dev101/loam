@@ -19,14 +19,19 @@ pub mut:
     corner_radius f32
     
     // Hierarchy
-    children []&Element
+    children []Element
     parent &Element = unsafe { nil }
 }
 
 pub struct Sizing {
 pub: 
-    width SizeMode
-    height SizeMode
+    width SizeModeValue
+    height SizeModeValue
+}
+pub struct SizeModeValue {
+pub:
+    mode SizeMode
+    value f32
 }
 
 pub enum SizeMode {
@@ -73,6 +78,8 @@ pub:
 pub enum RenderCommandType {
     rectangle
     text
+    image
+    other
 }
 
 pub struct RenderCommand {
@@ -92,8 +99,14 @@ pub fn main() {
 		width: 800
 		height: 600
 		sizing: Sizing{
-			width: .fixed
-			height: .fixed
+			width: SizeModeValue{
+                mode: .fixed
+                value: 800
+            }
+			height: SizeModeValue{
+                mode: .fixed
+                value: 600
+            }
 		}
 		padding: Padding{
 			left: 10

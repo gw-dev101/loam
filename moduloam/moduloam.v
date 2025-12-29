@@ -1,7 +1,7 @@
 module moduloam
 
 pub struct Context {
-    mut :
+    pub mut :
     elements []Element
     render_commands []RenderCommand
     screen_width  f32
