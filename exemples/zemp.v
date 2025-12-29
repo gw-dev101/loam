@@ -9,16 +9,16 @@ const win_h = 700
 
 struct App {
 mut:
-    gg  &gg.Context = unsafe { nil }
-    ctx moduloam.Context
+    gg_ctx  &gg.Context = unsafe { nil }
+    loam_ctx moduloam.Context
 }
 
 fn main() {
     mut app := &App{
-        ctx: moduloam.new_context(win_w, win_h)
+        loam_ctx: moduloam.new_context(win_w, win_h)
     }
 
-    app.gg = gg.new_context(
+    app.gg_ctx = gg.new_context(
         width: win_w
         height: win_h
         window_title: 'there is text here , if you can read this | hi'
@@ -26,22 +26,22 @@ fn main() {
         frame_fn: frame
     )
 
-    app.gg.run()
+    app.gg_ctx.run()
 }
 
 fn frame(mut app App) {
-    app.gg.begin()
+    app.gg_ctx.begin()
 
     app.build_ui()
 
-    cmds := app.ctx.end_layout()
-    gg_frontend.draw(mut app.gg, cmds)
+    cmds := app.loam_ctx.end_layout()
+    gg_frontend.draw(mut app.gg_ctx, cmds)
 
-    app.gg.end()
+    app.gg_ctx.end()
 }
 
 fn (mut app App) build_ui() {
-    app.ctx.begin_layout()
+    app.loam_ctx.begin_layout()
 
     // ───────────────── ROOT ─────────────────
     mut root := moduloam.Element{
@@ -139,7 +139,7 @@ fn (mut app App) build_ui() {
         bg_color: rgb(120, 70, 160)
     }
 
-    app.ctx.elements << root
+    app.loam_ctx.elements << root
 }
 
 // ───────────────── helpers ─────────────────
