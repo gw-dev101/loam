@@ -1,6 +1,6 @@
 module moduloam
 
-// calc layout method
+// calc_layout is method that prepare every render command that will be passed to the front-end
 fn (mut ctx Context) calc_layout() {
 	for i in 0 .. ctx.elements.len {
 		ctx.layout_element(mut ctx.elements[i], 0, 0, ctx.screen_width, ctx.screen_height)
@@ -8,6 +8,7 @@ fn (mut ctx Context) calc_layout() {
 	ctx.generate_render_commands()
 }
 
+// layout_element manages the layout of an Element and it's children
 fn (mut ctx Context) layout_element(mut elem Element, x f32, y f32, available_width f32, available_height f32) {
 	elem.x = x + elem.padding.left
 	elem.y = y + elem.padding.top
@@ -51,6 +52,7 @@ fn (mut ctx Context) layout_children(mut elem Element) {
 	}
 }
 
+// emit_element create the render command for a given Element and for it's children recursively
 fn (mut ctx Context) emit_element(elem Element) {
 	// Emit render command for this element
 	ctx.render_commands << RenderCommand{
@@ -70,6 +72,7 @@ fn (mut ctx Context) emit_element(elem Element) {
 	}
 }
 
+// generate_render_commands create the render commands for the front-end
 fn (mut ctx Context) generate_render_commands() {
 	ctx.render_commands.clear()
 	for elem in ctx.elements {
