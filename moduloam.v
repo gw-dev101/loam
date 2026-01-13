@@ -1,5 +1,6 @@
 module moduloam
 
+// Context handles everything the module needs
 pub struct Context {
 pub mut:
 	elements        []Element
@@ -11,6 +12,7 @@ pub mut:
 	mouse_down      i8 // should be a bitfield for all buttons but meh
 }
 
+// new_context creat a new context
 pub fn new_context(screen_width f32, screen_height f32) Context {
 	return Context{
 		elements:        []Element{}
@@ -23,11 +25,13 @@ pub fn new_context(screen_width f32, screen_height f32) Context {
 	}
 }
 
+// begin_layout reset all RenderCommand and all Element of a given context
 pub fn (mut ctx Context) begin_layout() {
 	ctx.render_commands = []RenderCommand{}
 	ctx.elements = []Element{}
 }
 
+// end_layout closes the layout?
 pub fn (mut ctx Context) end_layout() []RenderCommand {
 	// nothing for now
 	ctx.calc_layout()
